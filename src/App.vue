@@ -20,12 +20,12 @@ import { defineComponent } from 'vue';
 // }
 export default defineComponent({
   data: () => ({
-    NODE_ENV: process.env.NODE_ENV,
+    NODE_ENV: process.env.NODE_ENV
   }),
   components: {
     HelloWorld,
-    HelloTsx,
-  },
+    HelloTsx
+  }
 });
 </script>
 
