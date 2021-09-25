@@ -1,17 +1,32 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>{{ NODE_ENV }}</div>
+  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+  <HelloTsx msg="Welcome to Your Vue.js + TSX" />
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script lang="ts">
+// import { Options, Vue } from 'vue-class-component';
+import HelloWorld from './components/HelloWorld.vue';
+import HelloTsx from './components/hello';
+import { defineComponent } from 'vue';
 
-export default {
-  name: 'App',
+// @Options({
+//   components: {
+//     HelloWorld,
+//   },
+// })
+// export default class App extends Vue {
+
+// }
+export default defineComponent({
+  data: () => ({
+    NODE_ENV: process.env.NODE_ENV,
+  }),
   components: {
-    HelloWorld
-  }
-}
+    HelloWorld,
+    HelloTsx,
+  },
+});
 </script>
 
 <style>
@@ -19,8 +34,5 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
