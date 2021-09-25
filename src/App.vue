@@ -2,6 +2,7 @@
   <div>{{ NODE_ENV }}</div>
   <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
   <HelloTsx msg="Welcome to Your Vue.js + TSX" />
+  <a-button type="primary">Primary Button</a-button>
 </template>
 
 <script lang="ts">
