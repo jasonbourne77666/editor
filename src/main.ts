@@ -1,8 +1,12 @@
 import { createApp } from 'vue';
-import { Button } from 'ant-design-vue';
+import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/antd.css';
+import router from './router';
+import store from './store';
 import App from './App.vue';
 
-createApp(App)
-  .use(Button)
-  .mount('#app');
+const app = createApp(App);
+app.use(router);
+app.use(store);
+app.use(Antd);
+app.mount('#app');
