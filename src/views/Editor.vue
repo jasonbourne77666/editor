@@ -4,10 +4,10 @@
       <a-layout-sider width="300" style="background: #fff">
         <div class="sidebar-container">
           组件列表
-          <!-- <components-list
+          <components-list
             :list="defaultTextTemplates"
             @onItemClick="addItem"
-          /> -->
+          />
         </div>
       </a-layout-sider>
       <a-layout style="padding: 0 24px 24px">
@@ -23,7 +23,7 @@
             >
               <component :is="component.name" v-bind="component.props" />
             </edit-wrapper> -->
-            <component
+            <l-text
               v-for="component in components"
               :key="component.id"
               :id="component.id"
@@ -56,19 +56,47 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
 import { useStore } from 'vuex';
-import { GlobalDataProps } from '@/store';
-import LText from '@/components/LText.vue';
-
+import { GlobalDataProps } from '../store/index';
+import LText from '../components/LText.vue';
+import LImage from '../components/LImage.vue';
+import ComponentsList from '../components/ComponentsList.vue';
+import EditWrapper from '../components/EditWrapper.vue';
+import PropsTable from '../components/PropsTable.vue';
+// import { ComponentData } from '../store/editor';
+import { defaultTextTemplates } from '../defaultTemplates';
 export default defineComponent({
-  name: 'editor',
   components: {
     LText,
+    // LImage,
+    ComponentsList
+    // EditWrapper,
+    // PropsTable
   },
   setup() {
     const store = useStore<GlobalDataProps>();
     const components = computed(() => store.state.editor.components);
-    return { components };
-  },
+    // const currentElement = computed<ComponentData | null>(
+    //   () => store.getters.getCurrentElement
+    // );
+    const addItem = (component: any) => {
+      store.commit('addComponent', component);
+    };
+    const setActive = (id: string) => {
+      store.commit('setActive', id);
+    };
+    const handleChange = (e: any) => {
+      console.log('event', e);
+      store.commit('updateComponent', e);
+    };
+    return {
+      components,
+      defaultTextTemplates,
+      addItem,
+      setActive,
+      // currentElement,
+      handleChange
+    };
+  }
 });
 </script>
 

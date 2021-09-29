@@ -12,7 +12,8 @@ module.exports = {
     parser: '@typescript-eslint/parser'
   },
   rules: {
-    semi: 'warn',
+    // semi: 'warn',
+    'no-unused-vars': 0,
     'no-debugger': process.env.NODE_ENY === 'production' ? 'warn' : 'off'
   }
 };

@@ -1,32 +1,46 @@
 <!--  文本组件 -->
 <template>
-  <component :is="tag" :style="styleProps" class="l-text-component">
+  <component
+    :is="tag"
+    :style="styleProps"
+    class="l-text-component"
+    @click="handleClick"
+  >
     {{ text }}
   </component>
 </template>
 
 <script>
 import { defineComponent, computed } from 'vue';
-import { pick } from 'lodash-es';
+import {
+  transformToComponentProps,
+  textDefaultProps,
+  textStylePropNames
+} from '../defaultProps';
+import useComponentCommon from '../hooks/useComponentCommon';
+const defaultProps = transformToComponentProps(textDefaultProps);
 
 export default defineComponent({
   name: 'l-text',
   props: {
-    text: {
-      type: String,
-    },
-    fontSize: {
-      type: String,
-    },
     tag: {
       type: String,
-      default: 'div',
+      default: 'div'
     },
+    ...defaultProps
   },
   setup(props) {
-    const styleProps = computed(() => pick(props, ['fontSize']));
-    return { styleProps };
-  },
+    // 重用并且简化
+    // 抽离并且获得 styleProps
+    const { styleProps, handleClick } = useComponentCommon(
+      props,
+      textStylePropNames
+    );
+    return {
+      styleProps,
+      handleClick
+    };
+  }
 });
 </script>
 <style>
