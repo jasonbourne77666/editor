@@ -31,6 +31,9 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  # 监听的文件范围
+  # paths:
+  #   - 'src/**'
 
 jobs:
   # 工作流  build 任务名，可修改
@@ -58,6 +61,7 @@ jobs:
           node -v
           npm -v
           echo '打印字符串'
-      - run: npm ci
+      # - run: npm ci
+      - run: npm i
       - run: npm run build --if-present
       #- run: npm test
