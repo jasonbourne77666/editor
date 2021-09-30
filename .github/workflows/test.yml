@@ -5,13 +5,12 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -20,12 +19,17 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+      # 步骤name可省略
+      - uses: actions/checkout@v2 # git pull 第三方actions，作用是拉取最新代码（新虚拟环境，同步代码）
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2 # 第三方actions，安装nodejs
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - name: print node version
+        run: node -v
+        run: npm -v
+        run: echo '打印字符串'
+      - run: npm ci
+      - run: npm run build --if-present
+      #- run: npm test
