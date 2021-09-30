@@ -27,9 +27,10 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - name: print node version
-        run: node -v
-        run: npm -v
-        run: echo '打印字符串'
+        run: |
+          node -v
+          npm -v
+          echo '打印字符串'
       - run: npm ci
       - run: npm run build --if-present
       #- run: npm test
