@@ -1,32 +1,57 @@
 # This workflow will do a clean install of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
+# steps 可以自定义，三种方式
+
+# 一：直接使用 uses 第三方
+# - uses: actions/checkout@v2
+
+# 二：直接使用 name 和 uses 第三方
+# - name: Use Node.js ${{ matrix.node-version }}
+#   uses: actions/setup-node@v2 # 第三方actions，安装nodejs
+#   with:
+#     node-version: ${{ matrix.node-version }}
+#     cache: 'npm'
+
+# 三：使用name 和 run
+# - name: print node version
+#   run: |
+#       node -v
+#       npm -v
+#       echo '打印字符串'
+
+# 四：直接使用 run
+# - run: npm run build --if-present
+
 name: Node.js CI
 
 on:
+  # 监听的动作以及对应的分支
   push:
     branches: [main]
   pull_request:
     branches: [main]
 
 jobs:
+  # 工作流  build 任务名，可修改
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-      node-version:
-        [14.x]
-        # node-version: [12.x, 14.x, 16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    # 选配，设定多版本node，可在不同版本下执行
+    # strategy:
+    #   matrix:
+    #     node-version: [12.x, 14.x, 16.x] node多版本步骤一(版本号为变量)
+    # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
       # 步骤name可省略
       - uses: actions/checkout@v2 # git pull 第三方actions，作用是拉取最新代码（新虚拟环境，同步代码）
-      - name: Use Node.js ${{ matrix.node-version }}
+      # - name: Use Node.js ${{ matrix.node-version }} node多版本步骤二
+      - name: Use Node.js
         uses: actions/setup-node@v2 # 第三方actions，安装nodejs
         with:
-          node-version: ${{ matrix.node-version }}
+          # node-version: ${{ matrix.node-version }} node多版本步骤三
+          node-version: 14.x
           cache: 'npm'
       - name: print node version
         run: |
